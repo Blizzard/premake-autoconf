@@ -173,7 +173,9 @@ p.override(p.action, 'call', function (base, name)
 		end
 
 		-- then call the old onProject.
-		onBaseProject(prj)
+		if onBaseProject then
+			onBaseProject(prj)
+		end
 	end
 
 	-- now call the original action.call methods

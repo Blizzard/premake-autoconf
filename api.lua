@@ -48,7 +48,7 @@ function check_type_size(cfg, variable, type, headers)
 	check_include(cfg, 'HAVE_STDINT_H', 'stdint.h')
 	check_include(cfg, 'HAVE_STDDEF_H', 'stddef.h')
 
-	local res = autoconf.cache_compile(cfg, variable .. cfg.platform, 
+	local res = autoconf.cache_compile(cfg, variable .. cfg.platform,
 		function ()
 			if cfg.autoconf['HAVE_SYS_TYPES_H'] then
 				p.outln('#include <sys/types.h>')
@@ -133,6 +133,7 @@ end
 -- @headers  : an optional array of header files to include.
 ---
 function check_symbol_exists(cfg, variable, symbol, headers)
+	local h = headers
 	local res = autoconf.cache_compile(cfg, variable, function ()
 		autoconf.include_headers(headers)
 		p.outln('int main(int argc, char** argv) {')
@@ -218,8 +219,6 @@ end
 ---
 function autoconf.writefile(cfg, filename)
 	if cfg.autoconf then
-		print(filename)
-
 		local file = io.open(filename, "w+")
 		for variable, value in pairs(cfg.autoconf) do
 			file:write('#define ' .. variable .. ' ' .. tostring(value) .. (_eol or '\n'))
@@ -234,7 +233,7 @@ end
 ---
 function autoconf.include_headers(headers)
 	if headers ~= nil then
-		if type(headers) ~= "table" then
+		if type(headers) == "table" then
 			for _, v in ipairs(headers) do
 				p.outln('#include <' .. v .. '>')
 			end

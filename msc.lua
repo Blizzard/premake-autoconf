@@ -31,16 +31,12 @@ function msc.try_compile(cfg, text)
 			a = path.join(a, '../../VC/vcvarsall.bat')
 
 			if cfg.platform == 'x86' then
-				p.outln('call "' .. a .. '" > NULL')
+				p.outln('call "' .. a .. '" > NUL')
 			else
-				p.outln('call "' .. a .. '" amd64 > NULL')
+				p.outln('call "' .. a .. '" amd64 > NUL')
 			end
 
-			if _OPTIONS.verbose then
-				p.outln('cl.exe /nologo temp.cpp')
-			else
-				p.outln('cl.exe /nologo temp.cpp > NULL')
-			end
+			p.outln('cl.exe /nologo temp.cpp > NUL')
 		else
 			error('Unsupported Visual Studio version: ' .. _ACTION)
 		end

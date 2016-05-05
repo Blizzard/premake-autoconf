@@ -15,7 +15,7 @@ function clang.try_compile(cfg, text)
 	local outFile = path.join(cfg.objdir, "temp.out")
 
 	-- compile that text file.
-	if os.execute('clang "' .. cppFile .. '" -o "' .. outFile ..'"') then
+	if os.execute('clang "' .. cppFile .. '" -o "' .. outFile ..'" &> /dev/null') then
 		return outFile
 	else
 		return nil

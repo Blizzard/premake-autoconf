@@ -8,7 +8,7 @@
 		p.modules.autoconf = {}
 		p.modules.autoconf._VERSION = p._VERSION
 
-		print('Loading autoconf module...')
+		verbosef('Loading autoconf module...')
 		include('api.lua')
 		include('msc.lua')
 		include('clang.lua')
